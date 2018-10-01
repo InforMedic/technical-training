@@ -26,6 +26,8 @@ var Dashboard = AbstractAction.extend({
 
 core.action_registry.add('awesome_tshirt.dashboard', Dashboard);
 
+console.log('Hello Odoo World');
+
 return Dashboard;
 
 });
