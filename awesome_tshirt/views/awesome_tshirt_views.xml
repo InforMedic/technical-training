@@ -6,20 +6,22 @@
       <field name="name">awesome_tshirt.orders.form</field>
       <field name="model">awesome_tshirt.order</field>
       <field name="arch" type="xml">
-        <form>
+        <form js_class="order_form_view">
           <header>
             <field name="state" widget="statusbar" clickable="1"/>
           </header>
           <sheet>
+            <widget name="warning_widget"/>
             <group>
               <group>
                 <field name="customer_id"/>
                 <field name="size"/>
                 <field name="quantity"/>
                 <field name="amount"/>
+                <field name="is_late" widget="late_boolean"/>
               </group>
               <group>
-                <field name="image_url"/>
+                <field name="image_url" widget="image_preview"/>
               </group>
             </group>
           </sheet>
@@ -53,7 +55,8 @@
                 <div>Size: <field name="size"/></div>
                 <div>Quantity: <field name="quantity"/></div>
                 <div>Amount: <field name="amount"/></div>
-              </div>
+                <div><field class="pull-right" name="is_late" widget="late_boolean" options="{'not_late_color':'yellow'}"/></div> 
+             </div>
             </t>
           </templates>
         </kanban>
@@ -68,7 +71,8 @@
           <field name="size"/>
           <field name="quantity"/>
           <field name="amount"/>
-        </tree>
+          <field name="is_late" widget="late_boolean"/> 
+       </tree>
       </field>
     </record>
     <record id="orders_search_view" model="ir.ui.view">
@@ -80,7 +84,16 @@
         </search>
       </field>
     </record>
-
+    <record id="view_partner_form_geolocate" model="ir.ui.view">
+        <field name="name">awesome_tshirt.res.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+          <xpath expr="//form" position="attributes">
+            <attribute name="js_class">customer_form_view</attribute>
+          </xpath>
+        </field>
+    </record>
     <!-- actions -->
     <record model="ir.actions.act_window" id="orders">
       <field name="name">Orders</field>
